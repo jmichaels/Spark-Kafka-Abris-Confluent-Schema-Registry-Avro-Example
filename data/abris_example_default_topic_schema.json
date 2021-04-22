@@ -1,0 +1,42 @@
+[
+  {
+    "field1": 111,
+    "field2": 23.55,
+    "field3": "a asdf string"
+  },
+  {
+    "field1": 222,
+    "field2": 12.55,
+    "field3": "a g sdgdsdg string"
+  },
+  {
+    "field1": 333,
+    "field2": 23.55,
+    "field3": "a a sdf as sdstring"
+  },
+  {
+    "field1": 444,
+    "field2": 51.55,
+    "field3": "a asdfsd string"
+  },
+  {
+    "field1": 555,
+    "field2": 12.55,
+    "field3": "a 23f3 string"
+  },
+  {
+    "field1": 666,
+    "field2": 12.55,
+    "field3": "a lllllasdf string"
+  },
+  {
+    "field1": 777,
+    "field2": 12.55,
+    "field3": "a  asdfa sdfasdf asdfstring"
+  },
+  {
+    "field1": 888,
+    "field2": 12.55,
+    "field3": "asdf ads fasd a string"
+  }
+]

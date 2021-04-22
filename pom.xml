@@ -1,0 +1,154 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.example</groupId>
+  <artifactId>spark_abris_confluent_example</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>spark_abris_confluent_example</name>
+  <description>A minimal Scala project using the Maven build tool.</description>
+  <licenses>
+    <license>
+      <name>My License</name>
+      <url>http://....</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <properties>
+    <maven.compiler.source>1.11</maven.compiler.source>
+    <maven.compiler.target>1.11</maven.compiler.target>
+    <encoding>UTF-8</encoding>
+    <!-- <scala.version>2.13.5</scala.version> -->
+
+    <scala.version>2.12.13</scala.version>
+    <scala.version.short>2.12</scala.version.short>
+    <spark.version>3.0.1</spark.version>
+    <kafka.spark.version>0-10</kafka.spark.version>
+
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-library</artifactId>
+      <version>${scala.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-core_${scala.version.short}</artifactId>
+      <version>${spark.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-sql_${scala.version.short}</artifactId>
+      <version>${spark.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>za.co.absa</groupId>
+      <artifactId>abris_${scala.version.short}</artifactId>
+      <version>4.2.0</version>
+    </dependency>
+
+    <!-- Spark Kafka -->
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-sql-kafka-${kafka.spark.version}_${scala.version.short}</artifactId>
+      <version>${spark.version}</version>
+    </dependency>
+    <!-- <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-streaming-kafka-${kafka.spark.version}_${scala.version.short}</artifactId>
+      <version>${spark.version}</version>
+    </dependency>
+ -->
+
+    <!-- Test -->
+    <dependency>
+      <groupId>org.scalameta</groupId>
+      <artifactId>munit_2.13</artifactId>
+      <version>0.7.25</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <sourceDirectory>src/main/scala</sourceDirectory>
+    <testSourceDirectory>src/test/scala</testSourceDirectory>
+    <plugins>
+      <plugin>
+        <!-- see http://davidb.github.com/scala-maven-plugin -->
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+        <version>3.3.2</version>
+        <configuration></configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <goal>testCompile</goal>
+            </goals>
+            <configuration>
+              <args></args>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId> org.apache.maven.plugins </groupId>
+        <artifactId> maven-shade-plugin </artifactId>
+        <version>3.2.4</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <minimizeJAR>true</minimizeJAR>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                  <resource>
+                    META-INF/services/org.apache.spark.sql.sources.DataSourceRegister
+                  </resource>
+                </transformer>
+              </transformers>
+
+              <artifactSet>
+                <!-- <excludes>
+                       <exclude>org.apache.spark</exclude>
+                       <exclude>org.apache.hadoop</exclude>
+                       <exclude>junit:junit</exclude>
+                       <exclude>jmock:*</exclude>
+                       <exclude>*:xml-apis</exclude>
+                       <exclude>log4j:log4j:jar:</exclude>
+                     </excludes> -->
+              </artifactSet>
+              <shadedArtifactAttached>true</shadedArtifactAttached>
+              <shadedClassifierName>uber</shadedClassifierName>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.4</version>
+        <configuration>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin> -->
+    </plugins>
+  </build>
+</project>
