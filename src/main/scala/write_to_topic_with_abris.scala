@@ -13,7 +13,7 @@ object WriteToTopicWithAbris {
       .master("local[*]")
       .getOrCreate()
 
-    // Nullability is important.
+    // "Nullability" attribute of each field is important.
     //
     // The nullability of your Schema Registry schema fields
     // must match the nullability of your dataframe fields, or
